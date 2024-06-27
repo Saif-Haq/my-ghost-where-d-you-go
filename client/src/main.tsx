@@ -7,6 +7,7 @@ import {
 import App from "./App";
 import "./index.css";
 import { HomePage } from "./components/HomePage";
+import { Playlist } from "./components/Playlist";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,16 @@ const router = createBrowserRouter([
       },
     ]
   },
+  {
+    path: "/playlist",
+    element: <App />,
+    children: [
+      {
+        path: "/playlist",
+        element: <Playlist />,
+      },
+    ]
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

@@ -76,8 +76,20 @@
   }
 }
 
-.body {
-  cursor: url("../public/pngegg.png"), auto;
+.app {
+  cursor: url("../public/ghost128.png"), auto;
+}
+
+.simple-cursor {
+  cursor: pointer;
+}
+
+.cursor {
+  position: absolute;
+  background: black;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
 }
 
 .counter-container {

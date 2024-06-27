@@ -1,15 +1,17 @@
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
+import { Copy } from 'lucide-react';
 import { useState } from 'react';
-import grave from "../assets/grave.png";
+import { Company } from '../InterfaceTypes';
 import spiderWeb from "../assets/spider-web.png";
-import { Card } from './ui/card';
+import welcome from "../assets/spooky-halloween-music-jingle-tomas-herudek-1-00-12.mp3";
+import plus from "../assets/thunder-striking-ivo-vicic-1-00-16.mp3";
+import { GhosterListing } from './ui/GhosterListing';
+import { Button } from './ui/button';
+import { DialogHeader } from './ui/dialog';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
+
 export const HomePage = () => {
-
-  interface Company {
-    company: string,
-    id: number,
-    ghostCount: number
-  }
-
   const initialGhosters: Company[] = [
     {
       id: 0,
@@ -43,53 +45,57 @@ export const HomePage = () => {
     );
   };
 
+  const playWelcome = () => {
+    new Audio(welcome).play();
+  }
+
+  const togglePlay = () => {
+    new Audio(plus).play();
+  }
   return (
     <>
-      <div>HomePage</div>
+      <button onClick={togglePlay}>
+        {"Play"}
+      </button>
+
+      <Dialog defaultOpen>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Share link</DialogTitle>
+            <DialogDescription>
+              Anyone who has this link will be able to view this.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex items-center space-x-2">
+            <div className="grid flex-1 gap-2">
+              <Label htmlFor="link" className="sr-only">
+                Link
+              </Label>
+              <Input
+                id="link"
+                defaultValue="https://ui.shadcn.com/docs/installation"
+                readOnly
+              />
+            </div>
+            <Button type="submit" size="sm" className="px-3">
+              <span className="sr-only">Copy</span>
+              <Copy className="h-4 w-4" onClick={() => { navigator.clipboard.writeText("https://ui.shadcn.com/docs/installation") }} />
+            </Button>
+          </div>
+          <DialogClose asChild>
+            <Button type="button" variant="secondary">
+              Close
+            </Button>
+          </DialogClose>
+        </DialogContent>
+      </Dialog>
+
+      <div onClick={playWelcome}>HomePage</div>
       <div className="flex align-top justify-end">
-        <img alt="" width="500px" className="flex scale-x-[-1] flex-end" src={spiderWeb}></img>
+        <img alt="" width="500px" className=" absolute z-0 flex scale-x-[-1] flex-end w-64" src={spiderWeb}></img>
       </div>
 
-      {/* <div className="flex flex-wrap gap-2">
-        {
-          ghosters.map((ghost) => (
-            <Card key={ghost.id} className='w-1/4 h-79 mb-7 relative hover:border-gray-700 confetti-container flex'>
-              <img alt="" width="500px" src={grave} />
-
-              <p className='text-shadow-custom font-bold text-2xl justify-center items-center flex'>{ghost.ghostCount}</p>
-
-              <div className='absolute'>
-                <div className='left-[13.5rem] top-[-17.5rem] absolute'>
-                  <button onClick={() => increaseGhostCount(ghost.id)}>Increase Ghost Count</button>
-                </div>
-              </div>
-
-
-              <p>{ghost.company}</p>
-              <p>Ghost Count: {ghost.ghostCount}</p>
-            </Card>
-          ))
-        }
-      </div> */}
-
-      <div className="flex flex-wrap gap-2">
-        {
-          ghosters.map((ghost) => (
-            <Card key={ghost.id} className='w-1/4 h-79 mb-7 relative hover:border-gray-700 confetti-container flex'>
-              <img alt="" width="500px" src={grave} />
-
-              <p className='left-1/2 top-1/2 text-shadow-custom font-bold text-2xl justify-center items-center flex absolute'>{ghost.ghostCount}</p>
-
-              <div className='absolute items-center flex left-1/2 top-1/2'>
-                <button onClick={() => increaseGhostCount(ghost.id)}>Increase Ghost Count</button>
-              </div>
-
-
-              <p className='absolute'>{ghost.company}</p>
-            </Card>
-          ))
-        }
-      </div>
+      <GhosterListing ghosters={ghosters} increaseGhostCount={increaseGhostCount} />
     </>
   )
 }
