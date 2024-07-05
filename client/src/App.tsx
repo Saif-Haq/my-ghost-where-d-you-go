@@ -4,7 +4,8 @@ import Navbar from "./components/Navbar";
 const App = () => {
 
   return (
-    <div className="w-full p-6 app">
+    <div>
+      {/* className="w-full p-6 app"> */}
       {/* <CursorTracker /> */}
       <Navbar />
       <Outlet />
