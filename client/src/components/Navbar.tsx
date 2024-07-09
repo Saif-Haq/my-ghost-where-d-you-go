@@ -9,9 +9,15 @@ export default function Navbar() {
           <p>Home</p>
         </NavLink>
 
-        <NavLink to="/playlist">
-          <p>Spotify Playlist</p>
-        </NavLink>
+        <div className="flex items-end">
+          <NavLink to="/playlist" className="mr-3">
+            <p>Spotify Playlist</p>
+          </NavLink>
+
+          <NavLink to="/about" className="mr-3">
+            <p>About</p>
+          </NavLink>
+        </div>
       </nav>
     </div>
   );

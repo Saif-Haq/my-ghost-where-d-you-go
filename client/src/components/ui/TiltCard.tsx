@@ -1,10 +1,11 @@
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
-import { useRef } from "react";
+import { FC, useRef } from "react";
+import { TiltCardProps } from "../../InterfaceTypes";
 
 const ROTATION_RANGE = 32.5;
 const HALF_ROTATION_RANGE = 32.5 / 2;
 
-export const TiltCard = () => {
+export const TiltCard: FC<TiltCardProps> = ({ children }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const x = useMotionValue(0);
@@ -56,20 +57,21 @@ export const TiltCard = () => {
         }}
         className="absolute inset-4 grid place-content-center rounded-xl bg-gray-500 shadow-lg"
       >
-        {/* <FiMousePointer
-                    style={{
-                        transform: "translateZ(75px)",
-                    }}
-                    className="mx-auto text-4xl"
-                /> */}
-        <p
+        <div
+          style={{
+            transform: "translateZ(75px)",
+          }}
+          className="mx-auto text-4xl"
+        >{children}
+        </div>
+        {/* <p
           style={{
             transform: "translateZ(50px)",
           }}
           className="text-center text-2xl font-bold"
         >
           HOVER ME
-        </p>
+        </p> */}
       </div>
     </motion.div>
   );

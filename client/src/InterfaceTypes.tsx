@@ -24,3 +24,7 @@ export interface DripProps {
 export interface BloodDrippingButtonProps {
   text: string;
 }
+
+export interface TiltCardProps {
+  children: JSX.Element;
+}
